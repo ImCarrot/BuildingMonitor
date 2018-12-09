@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FloorShould.cs" />
+    <Compile Include="FloorsManagerShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TempratureSensorShould.cs" />
   </ItemGroup>
