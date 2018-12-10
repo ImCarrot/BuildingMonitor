@@ -73,6 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FloorQueryShould.cs" />
     <Compile Include="FloorShould.cs" />
     <Compile Include="FloorsManagerShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

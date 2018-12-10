@@ -125,5 +125,36 @@ namespace BuildingMonitor.Tests
             Assert.Equal(1, response.Ids.Count);
             Assert.Contains("80", response.Ids);
         }
+
+        [Fact]
+        public void ShouldInitiateQuery()
+        {
+            var probe = CreateTestProbe();
+            var floor = Sys.ActorOf(Floor.Prop("a"));
+
+            floor.Tell(new RequestRegisterTemperatureSensor(1, "a", "42"), probe.Ref);
+            probe.ExpectMsg<RespondSensorRegistered>();
+
+            var sensor1 = probe.LastSender;
+
+            floor.Tell(new RequestRegisterTemperatureSensor(2, "a", "80"), probe.Ref);
+            probe.ExpectMsg<RespondSensorRegistered>();
+
+            var sensor2 = probe.LastSender;
+
+            sensor1.Tell(new RequestUpdateTemperature(0, 50.4));
+            sensor2.Tell(new RequestUpdateTemperature(0, 100.8));
+
+            floor.Tell(new RequestAllTemperatures(1), probe.Ref);
+            var response = probe.ExpectMsg<RespondAllTemeratures>(x => x.RequestId == 1);
+
+            Assert.Equal(2, response.TemperatureReadings.Count);
+
+            var reading1 = Assert.IsType<TemperatureAvailable>(response.TemperatureReadings["42"]);
+            Assert.Equal(50.4, reading1.Temperature);
+
+            var reading2 = Assert.IsType<TemperatureAvailable>(response.TemperatureReadings["80"]);
+            Assert.Equal(100.8, reading2.Temperature);
+        }
     }
 }

@@ -52,14 +52,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\Floor.cs" />
+    <Compile Include="Actors\FloorQuery.cs" />
     <Compile Include="Actors\FloorsManager.cs" />
     <Compile Include="Actors\TemperatureSensor.cs" />
+    <Compile Include="Messages\ITemperatureQueryReading.cs" />
+    <Compile Include="Messages\QueryTimeout.cs" />
+    <Compile Include="Messages\RequestAllTemperatures.cs" />
     <Compile Include="Messages\RequestFloorIds.cs" />
     <Compile Include="Messages\RequestMetadata.cs" />
     <Compile Include="Messages\RequestRegisterTemperatureSensor.cs" />
     <Compile Include="Messages\RequestTemperature.cs" />
     <Compile Include="Messages\RequestTemperatureSensorIds.cs" />
     <Compile Include="Messages\RequestUpdateTemperature.cs" />
+    <Compile Include="Messages\RespondAllTemeratures.cs" />
     <Compile Include="Messages\RespondFloorIds.cs" />
     <Compile Include="Messages\RespondMetadata.cs" />
     <Compile Include="Messages\RespondSensorRegistered.cs" />
