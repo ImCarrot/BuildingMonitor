@@ -40,7 +40,7 @@ namespace BuildingMonitor.Host
         private void SimulateUpdateTemperature(object state)
         {
             var randomTemerature = temperatureGenerator.NextDouble();
-            randomTemerature *= 100;
+            randomTemerature *= 10;
             sensorRef.Ask(new RequestUpdateTemperature(0, randomTemerature));
         }
     }

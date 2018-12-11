@@ -19,7 +19,6 @@ namespace BuildingMonitor.Host
                 Console.WriteLine("Systems up and running!");
                 while (true)
                 {
-                    Console.WriteLine("Press Enter to fetch data & Q to Quit");
                     var command = Console.ReadKey();
 
                     if (command.Key == ConsoleKey.Q)
@@ -35,12 +34,13 @@ namespace BuildingMonitor.Host
             var temps = await system.ActorSelection("akka://buildingMonitoringSystem/user/floorManager/floor-1st")
                 .Ask<RespondAllTemeratures>(new RequestAllTemperatures(0));
 
-
+            Console.CursorLeft = 0;
+            Console.CursorTop = 0;
 
             foreach (var temp in temps.TemperatureReadings)
             {
                 if (temp.Value is TemperatureAvailable value)
-                    Console.WriteLine($"Sensor {temp.Key} {temp.Value.GetType().Name} {value.Temperature: 00.0}");
+                    Console.WriteLine($"Sensor {temp.Key} {temp.Value.GetType().Name} {value.Temperature: 00.0}°C");
                 else
                     Console.WriteLine($"Sensor {temp.Key} {temp.Value.GetType().Name}");
             }
