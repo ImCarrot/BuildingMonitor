@@ -3,6 +3,8 @@ using Akka.TestKit.Xunit2;
 using BuildingMonitor.Actors;
 using BuildingMonitor.Messages;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 
@@ -90,6 +92,64 @@ namespace BuildingMonitor.Tests
             Assert.Equal(3, received.RequestId);
             Assert.Equal(1, received.Ids.Count);
             Assert.Contains("b", received.Ids);
+        }
+
+
+        [Fact]
+        public void doDo()
+        {
+            var l1 = new List<Hello>()
+            {
+                new Hello("Carrot"),
+                new Hello("Radish"),
+                new Hello("Potato"),
+                new Hello("Tomato"),
+                new Hello("Lemons"),
+            };
+
+            var l2 = new List<Hello>()
+            {
+                new Hello("Carrot"),
+                new Hello("Peach"),
+                new Hello("Orange"),
+                new Hello("Tomato"),
+                new Hello("Apple"),
+                new Hello("Carrot")
+            };
+
+            Hello toMatch = new Hello("Carrot");
+            var matches = new List<Hello>();
+
+            foreach (var item in l2)
+            {
+                if (item.DisplayName == toMatch.DisplayName)
+                    matches.Add(item);
+            }
+
+            var m2 = l2.Where(x => x.DisplayName == toMatch.DisplayName).ToList();
+
+            var p = m2.Any();
+
+            Console.Out.GetType();
+        }
+
+        public class Hello
+        {
+            public Hello(string name)
+            {
+                DisplayName = name;
+            }
+            public string DisplayName { get; set; }
+        }
+
+        public class World
+        {
+            public World(string name)
+            {
+                DisplayName = name;
+            }
+            public string DisplayName { get; set; }
+
         }
     }
 }
